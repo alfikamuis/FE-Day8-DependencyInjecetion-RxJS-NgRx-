@@ -11,6 +11,7 @@ import { ViewComponent } from './components/view/view.component';
 import { UpdateComponent } from './components/update/update.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './components/home/home.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { HomeComponent } from './components/home/home.component';
     ReactiveFormsModule,
     NgbModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

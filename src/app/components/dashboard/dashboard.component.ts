@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,10 +9,7 @@ import { User } from 'src/app/models/user';
 })
 export class DashboardComponent implements OnInit {
 
-  newData: User[] = [
-    {id: 1,nama:"alfika",kota:"banyuwangi"},
-    {id: 2,nama:"muis",kota:"malang"}
-  ];
+  public newData: User[] = [];
 
   selectData: User | null = null;
   updateData: User | null = null;
@@ -20,26 +17,20 @@ export class DashboardComponent implements OnInit {
   
 
   constructor(
-    private router: Router,
+    private dataService: DataService,
   ) { }
 
   ngOnInit(): void {
+    this.newData = this.dataService.getList();
   }
 
   addRow(row : User){
-    if (row.id < this.newData.length){
-      row.id = this.newData.length + 1;
-    }
+    row = this.dataService.add(row,this.newData);
     this.newData.push(row);
   }
 
   onUpdateData(row: User) {
-    this.newData = this.newData.map(item =>{
-      if (row.id === item.id) {
-        return row;
-      }
-      return item;
-    })
+    this.newData = this.dataService.update(row,this.newData);
     this.updateData = null;
     this.isAdd =true;
   }
@@ -54,15 +45,11 @@ export class DashboardComponent implements OnInit {
     this.isAdd = true;
     this.selectData = row;
     this.updateData = null;
-    this.router.navigate(['/view/'+row.id+'/'+row.nama+'/'+row.kota]);
+    this.dataService.view(row);
   }
   
-  deleteRow(row : User) {
-    for (let i in this.newData) {
-      if (this.newData[i]['id'] == row.id) {
-        this.newData.splice(parseInt(i), 1);
-      }
-    }
+  deleteRow(row: User){
+    this.dataService.delete(row,this.newData);
   }
 
 }

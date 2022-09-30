@@ -9,7 +9,7 @@ import { User } from 'src/app/models/user';
 })
 export class AddEditComponent implements OnInit {
 
-  id: number = 0;
+  id!: number;
   nama!: string;
   kota!: string;
   
@@ -20,6 +20,7 @@ export class AddEditComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.id = 0;
   }
 
   submitValues() {
