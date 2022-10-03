@@ -2,7 +2,11 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
 
 ## Dependency injections dataService to dashboard
-![image](https://user-images.githubusercontent.com/38674801/193231657-7f9cf3f5-07e0-4df2-a706-c1421fb175d0.png)
+![image](https://user-images.githubusercontent.com/38674801/193611602-effa3956-b100-4984-bce4-6aa879b38312.png)
+
+## RxJS user data to global
+![image](https://user-images.githubusercontent.com/38674801/193611779-ec6a2dc2-b306-45eb-b5de-71f3eb6407f2.png)
+
 
 
 ## Development server
