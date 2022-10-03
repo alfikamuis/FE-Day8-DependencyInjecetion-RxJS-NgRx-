@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { DataService } from 'src/app/services/data.service';
 
@@ -7,7 +8,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy{
 
   public newData: User[] = [];
 
@@ -15,14 +16,22 @@ export class DashboardComponent implements OnInit {
   updateData: User | null = null;
   isAdd: boolean = true;
   
+  subs!: Subscription ;
 
   constructor(
     private dataService: DataService,
   ) { }
 
-  ngOnInit(): void {
-    this.newData = this.dataService.getList();
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
+
+  ngOnInit(): void {
+    this.dataService.getList().subscribe(data => {
+      this.newData = data;
+    });
+  }
+
 
   addRow(row : User){
     row = this.dataService.add(row,this.newData);
